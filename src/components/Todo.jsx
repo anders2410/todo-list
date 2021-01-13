@@ -5,10 +5,20 @@ const Todo = ({ todo, todos, setTodos }) => {
     setTodos(todos.filter((el) => el.id !== todo.id));
   };
 
+  const completeHandler = () => {
+    setTodos(
+      todos.map((item) => {
+        return item.id === todo.id
+          ? { ...item, completed: !item.completed }
+          : item;
+      })
+    );
+  };
+
   return (
     <div className="todo">
-      <li className="todo-item">{todo.text}</li>
-      <button className="complete-btn">
+      <li className={`todo-item ${todo.completed ? "completed" : ""}`}>{todo.text}</li>
+      <button onClick={completeHandler} className="complete-btn">
         <i className="fas fa-check" />
       </button>
       <button onClick={deleteHandler} className="trash-btn">
